@@ -21,6 +21,7 @@ namespace AlgorithmExperiment
         }
 
         #region Calling winform controls using thread-safe method
+        //delegates in tabGroup1
         delegate void IterationSetRangeCallback(int Range);
         delegate void IterationSetMaxValLblCallback(string Text);
         delegate void IterationSetTimeLblCallback(string Text);
@@ -29,6 +30,110 @@ namespace AlgorithmExperiment
         delegate void RecursionSetMaxValLblCallback(string Text);
         delegate void RecursionSetTimeLblCallback(string Text);
         delegate void RecursionSetMaxIndexLblCallback(string Text);
+        delegate int GetAlgorithmSelectCallback();
+
+        //delegates in tabGroup2
+        delegate void IterationSetRangeDelegate(int Range);
+        delegate void IterationSetBasicOperationNumDelegate(string Text);
+        delegate void IterationSetFibResultDelegate(string Text);
+        delegate void RecursionSetRangeDelegate(int Range);
+        delegate void RecursionSetBasicOperationNumDelegate(string Text);
+        delegate void RecursionSetFibResultDelegate(string Text);
+
+        //methods in tabGroup2
+        public void RecursionSetFibResult(string Text)
+        {
+            if (this.lblFibNValRecursion.InvokeRequired)
+            {
+                RecursionSetFibResultDelegate d = new RecursionSetFibResultDelegate(RecursionSetFibResult);
+                this.Invoke(d, new object[] { Text });
+            }
+            else
+            {
+                this.lblFibNValRecursion.Text = Text;
+            }
+        }
+
+        public void RecursionSetBasicOperationNum(string Text)
+        {
+            if (this.lblBasicOperateNumRecursion.InvokeRequired)
+            {
+                RecursionSetBasicOperationNumDelegate d = new RecursionSetBasicOperationNumDelegate(RecursionSetBasicOperationNum);
+                this.Invoke(d, new object[] { Text });
+            }
+            else
+            {
+                this.lblBasicOperateNumRecursion.Text = Text;
+            }
+        }
+
+        public void RecursionSetRangeInTab2(int Range)
+        {
+            if (this.progressRecursionInTab2.InvokeRequired)
+            {
+                RecursionSetRangeDelegate d = new RecursionSetRangeDelegate(RecursionSetRangeInTab2);
+                this.Invoke(d, new object[] { Range });
+            }
+            else
+            {
+                this.progressRecursionInTab2.Value = Range;
+            }
+        }
+
+        public void IterationSetFibResult(string Text)
+        {
+            if (this.lblFibNVal.InvokeRequired)
+            {
+                IterationSetFibResultDelegate d = new IterationSetFibResultDelegate(IterationSetFibResult);
+                this.Invoke(d, new object[] { Text });
+            }
+            else
+            {
+                this.lblFibNVal.Text = Text;
+            }
+        }
+
+        public void IterationSetRangeInTab2(int Range)
+        {
+            if (this.progressIterationInTab2.InvokeRequired)
+            {
+                IterationSetRangeDelegate d = new IterationSetRangeDelegate(IterationSetRangeInTab2);
+                this.Invoke(d, new object[] { Range });
+            }
+            else
+            {
+                this.progressIterationInTab2.Value = Range;
+            }
+        }
+
+        public void IterationSetBasicOperationNum(string Text)
+        {
+            if (this.lblBasicOperateNum.InvokeRequired)
+            {
+                IterationSetBasicOperationNumDelegate d = new IterationSetBasicOperationNumDelegate(IterationSetBasicOperationNum);
+                this.Invoke(d, new object[] { Text });
+            }
+            else
+            {
+                this.lblBasicOperateNum.Text = Text;
+            }
+        }
+
+        //methods in tabGroup1
+        public int GetAlgorithmSelect()
+        {
+            int index = 0;
+            if (this.AlgorithmSelect.InvokeRequired)
+            {
+                GetAlgorithmSelectCallback d = new GetAlgorithmSelectCallback(GetAlgorithmSelect);
+                this.Invoke(d);
+            }
+            else
+            {
+                index = this.AlgorithmSelect.SelectedIndex;
+            }
+            return index;
+        }
 
         public void RecursionSetMaxIndexLbl(string Text)
         {
@@ -174,6 +279,18 @@ namespace AlgorithmExperiment
                 return Fibonacci_Recursion(ValueIn - 1) + Fibonacci_Recursion(ValueIn - 2);
             }
         }
+
+        /// <summary>
+        /// 使用改进后的算法输出Fibonacci数列的第n项的值
+        /// </summary>
+        /// <param name="ValueIn">输入的n</param>
+        /// <returns>第n项Fibonacci数列的值</returns>
+        public int Fibonacci_New(int ValueIn)
+        {
+            double sqrt5 = Math.Sqrt(5);
+            return Convert.ToInt32((1 / sqrt5) * (Math.Pow((1 + sqrt5) / 2, ValueIn) - Math.Pow((1 - sqrt5) / 2, ValueIn)));
+        }
+
         #endregion
 
         private void Fibonacci_FormClosing(object sender, FormClosingEventArgs e)
@@ -186,11 +303,16 @@ namespace AlgorithmExperiment
             }
             else
             {
+                if (t != null)
+                {
+                    t.Abort();
+                }
                 e.Cancel = false;
                 mainF.Show();
             }
         }
 
+        #region Question1: Find the max index of Fib(n)
         public ExecuteResult findFibMaxByIteration()
         {
             Stopwatch watch = new Stopwatch();
@@ -200,6 +322,32 @@ namespace AlgorithmExperiment
             while (true)
             {
                 fibMax = Fibonacci_Iterate(maxIndex);
+                if (fibMax >= 0)
+                {
+                    fibRst.Add(new FibonacciResult(fibMax, maxIndex));
+                    maxIndex++;
+                }
+                else
+                {
+                    fibMax = fibRst[maxIndex - 1].FibResult;
+                    maxIndex = fibRst[maxIndex - 1].FibIndex;
+                    break;
+                }
+                this.IterationSetRange(maxIndex);
+            }
+            watch.Stop();
+            return new ExecuteResult(watch.ElapsedMilliseconds, new FibonacciResult(fibMax, maxIndex));
+        }
+
+        public ExecuteResult finFibMaxByNewIteration()
+        {
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
+            List<FibonacciResult> fibRst = new List<FibonacciResult>();
+            int fibMax = 0, maxIndex = 0;
+            while (true)
+            {
+                fibMax = Fibonacci_New(maxIndex);
                 if (fibMax >= 0)
                 {
                     fibRst.Add(new FibonacciResult(fibMax, maxIndex));
@@ -244,8 +392,6 @@ namespace AlgorithmExperiment
             return new ExecuteResult(watch.ElapsedMilliseconds, new FibonacciResult(fibMax, maxIndex));
         }
 
-        
-
         private void btnIterationStart_Click(object sender, EventArgs e)
         {
             System.Threading.Thread a = new System.Threading.Thread(new System.Threading.ThreadStart(IterationFind));
@@ -254,7 +400,15 @@ namespace AlgorithmExperiment
 
         public void IterationFind()
         {
-            ExecuteResult er = findFibMaxByIteration();
+            ExecuteResult er;
+            if (this.GetAlgorithmSelect() == 0)
+            {
+                er = findFibMaxByIteration();
+            }
+            else
+            {
+                er = finFibMaxByNewIteration();
+            }
             this.IterationSetMaxIndexLbl(er.Result.FibIndex.ToString());
             this.IterationSetMaxValLbl(er.Result.FibResult.ToString());
             this.IterationSetTimeLbl(er.TimeEllapsed.ToString() + "毫秒");
@@ -270,6 +424,7 @@ namespace AlgorithmExperiment
 
         private void tabPage1_Enter(object sender, EventArgs e)
         {
+            AlgorithmSelect.SelectedIndex = 0;
             progressIteration.Value = 0;
             progressIteration.Minimum = 0;
             progressIteration.Maximum = 47;
@@ -286,18 +441,31 @@ namespace AlgorithmExperiment
 
         private void btnRecursionStart_Click(object sender, EventArgs e)
         {
-            DialogResult dr = MessageBox.Show("切换选项卡将会强行打断算法执行过程，确认开始执行？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            DialogResult dr = MessageBox.Show("切换选项卡或退出实验将会强行打断算法执行过程，确认开始执行？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if (dr == DialogResult.OK)
             {
                 System.Threading.Thread b = new System.Threading.Thread(new System.Threading.ThreadStart(RecursionFind));
                 b.Start();
+                t = b;
             }
         }
 
+        public System.Threading.Thread t;
+
         private void tabPage1_Leave(object sender, EventArgs e)
         {
-            
+            if (t != null)
+            {
+                t.Abort();
+            }
         }
+        #endregion
+
+        private void btnIterateStart_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
     public class FibonacciResult
     {
