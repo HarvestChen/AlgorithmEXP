@@ -30,18 +30,7 @@
         {
             this.tabGroup = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.groupIterate = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnIterationStart = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.lblIterationMaxVal = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.lblIterationTime = new System.Windows.Forms.Label();
-            this.progressIteration = new System.Windows.Forms.ProgressBar();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.lblIterationMaxIndex = new System.Windows.Forms.Label();
             this.groupRecursion = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
             this.progressRecursion = new System.Windows.Forms.ProgressBar();
@@ -52,10 +41,21 @@
             this.lblRecursionMaxVal = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.btnRecursionStart = new System.Windows.Forms.Button();
+            this.groupIterate = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.progressIteration = new System.Windows.Forms.ProgressBar();
+            this.lblIterationMaxIndex = new System.Windows.Forms.Label();
+            this.lblIterationTime = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lblIterationMaxVal = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnIterationStart = new System.Windows.Forms.Button();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabGroup.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.groupIterate.SuspendLayout();
             this.groupRecursion.SuspendLayout();
+            this.groupIterate.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabGroup
@@ -81,34 +81,7 @@
             this.tabPage1.Text = "查找最大的Fib(n)";
             this.tabPage1.UseVisualStyleBackColor = true;
             this.tabPage1.Enter += new System.EventHandler(this.tabPage1_Enter);
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(192, 74);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // groupIterate
-            // 
-            this.groupIterate.Controls.Add(this.label3);
-            this.groupIterate.Controls.Add(this.progressIteration);
-            this.groupIterate.Controls.Add(this.lblIterationMaxIndex);
-            this.groupIterate.Controls.Add(this.lblIterationTime);
-            this.groupIterate.Controls.Add(this.label5);
-            this.groupIterate.Controls.Add(this.label4);
-            this.groupIterate.Controls.Add(this.lblIterationMaxVal);
-            this.groupIterate.Controls.Add(this.label2);
-            this.groupIterate.Controls.Add(this.btnIterationStart);
-            this.groupIterate.Location = new System.Drawing.Point(6, 35);
-            this.groupIterate.Name = "groupIterate";
-            this.groupIterate.Size = new System.Drawing.Size(493, 104);
-            this.groupIterate.TabIndex = 0;
-            this.groupIterate.TabStop = false;
-            this.groupIterate.Text = "迭代法查找";
+            this.tabPage1.Leave += new System.EventHandler(this.tabPage1_Leave);
             // 
             // label1
             // 
@@ -118,86 +91,6 @@
             this.label1.Size = new System.Drawing.Size(191, 12);
             this.label1.TabIndex = 1;
             this.label1.Text = "整型数(int)的最大值为2147483647";
-            // 
-            // btnIterationStart
-            // 
-            this.btnIterationStart.Location = new System.Drawing.Point(7, 23);
-            this.btnIterationStart.Name = "btnIterationStart";
-            this.btnIterationStart.Size = new System.Drawing.Size(75, 23);
-            this.btnIterationStart.TabIndex = 0;
-            this.btnIterationStart.Text = "开始";
-            this.btnIterationStart.UseVisualStyleBackColor = true;
-            this.btnIterationStart.Click += new System.EventHandler(this.btnIterationStart_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(97, 28);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(77, 12);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "最大的Fib(n)";
-            // 
-            // lblIterationMaxVal
-            // 
-            this.lblIterationMaxVal.AutoSize = true;
-            this.lblIterationMaxVal.Location = new System.Drawing.Point(180, 28);
-            this.lblIterationMaxVal.Name = "lblIterationMaxVal";
-            this.lblIterationMaxVal.Size = new System.Drawing.Size(41, 12);
-            this.lblIterationMaxVal.TabIndex = 1;
-            this.lblIterationMaxVal.Text = "label2";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(353, 28);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(29, 12);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "耗时";
-            // 
-            // lblIterationTime
-            // 
-            this.lblIterationTime.AutoSize = true;
-            this.lblIterationTime.Location = new System.Drawing.Point(388, 28);
-            this.lblIterationTime.Name = "lblIterationTime";
-            this.lblIterationTime.Size = new System.Drawing.Size(41, 12);
-            this.lblIterationTime.TabIndex = 1;
-            this.lblIterationTime.Text = "label2";
-            // 
-            // progressIteration
-            // 
-            this.progressIteration.Location = new System.Drawing.Point(64, 59);
-            this.progressIteration.Name = "progressIteration";
-            this.progressIteration.Size = new System.Drawing.Size(423, 23);
-            this.progressIteration.TabIndex = 2;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(5, 64);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(53, 12);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "查找进度";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(253, 28);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(35, 12);
-            this.label5.TabIndex = 1;
-            this.label5.Text = "n的值";
-            // 
-            // lblIterationMaxIndex
-            // 
-            this.lblIterationMaxIndex.AutoSize = true;
-            this.lblIterationMaxIndex.Location = new System.Drawing.Point(293, 28);
-            this.lblIterationMaxIndex.Name = "lblIterationMaxIndex";
-            this.lblIterationMaxIndex.Size = new System.Drawing.Size(41, 12);
-            this.lblIterationMaxIndex.TabIndex = 1;
-            this.lblIterationMaxIndex.Text = "label2";
             // 
             // groupRecursion
             // 
@@ -297,6 +190,114 @@
             this.btnRecursionStart.UseVisualStyleBackColor = true;
             this.btnRecursionStart.Click += new System.EventHandler(this.btnRecursionStart_Click);
             // 
+            // groupIterate
+            // 
+            this.groupIterate.Controls.Add(this.label3);
+            this.groupIterate.Controls.Add(this.progressIteration);
+            this.groupIterate.Controls.Add(this.lblIterationMaxIndex);
+            this.groupIterate.Controls.Add(this.lblIterationTime);
+            this.groupIterate.Controls.Add(this.label5);
+            this.groupIterate.Controls.Add(this.label4);
+            this.groupIterate.Controls.Add(this.lblIterationMaxVal);
+            this.groupIterate.Controls.Add(this.label2);
+            this.groupIterate.Controls.Add(this.btnIterationStart);
+            this.groupIterate.Location = new System.Drawing.Point(6, 35);
+            this.groupIterate.Name = "groupIterate";
+            this.groupIterate.Size = new System.Drawing.Size(493, 104);
+            this.groupIterate.TabIndex = 0;
+            this.groupIterate.TabStop = false;
+            this.groupIterate.Text = "迭代法查找";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(5, 64);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(53, 12);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "查找进度";
+            // 
+            // progressIteration
+            // 
+            this.progressIteration.Location = new System.Drawing.Point(64, 59);
+            this.progressIteration.Name = "progressIteration";
+            this.progressIteration.Size = new System.Drawing.Size(423, 23);
+            this.progressIteration.TabIndex = 2;
+            // 
+            // lblIterationMaxIndex
+            // 
+            this.lblIterationMaxIndex.AutoSize = true;
+            this.lblIterationMaxIndex.Location = new System.Drawing.Point(293, 28);
+            this.lblIterationMaxIndex.Name = "lblIterationMaxIndex";
+            this.lblIterationMaxIndex.Size = new System.Drawing.Size(41, 12);
+            this.lblIterationMaxIndex.TabIndex = 1;
+            this.lblIterationMaxIndex.Text = "label2";
+            // 
+            // lblIterationTime
+            // 
+            this.lblIterationTime.AutoSize = true;
+            this.lblIterationTime.Location = new System.Drawing.Point(388, 28);
+            this.lblIterationTime.Name = "lblIterationTime";
+            this.lblIterationTime.Size = new System.Drawing.Size(41, 12);
+            this.lblIterationTime.TabIndex = 1;
+            this.lblIterationTime.Text = "label2";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(253, 28);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(35, 12);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "n的值";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(353, 28);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(29, 12);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "耗时";
+            // 
+            // lblIterationMaxVal
+            // 
+            this.lblIterationMaxVal.AutoSize = true;
+            this.lblIterationMaxVal.Location = new System.Drawing.Point(180, 28);
+            this.lblIterationMaxVal.Name = "lblIterationMaxVal";
+            this.lblIterationMaxVal.Size = new System.Drawing.Size(41, 12);
+            this.lblIterationMaxVal.TabIndex = 1;
+            this.lblIterationMaxVal.Text = "label2";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(97, 28);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(77, 12);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "最大的Fib(n)";
+            // 
+            // btnIterationStart
+            // 
+            this.btnIterationStart.Location = new System.Drawing.Point(7, 23);
+            this.btnIterationStart.Name = "btnIterationStart";
+            this.btnIterationStart.Size = new System.Drawing.Size(75, 23);
+            this.btnIterationStart.TabIndex = 0;
+            this.btnIterationStart.Text = "开始";
+            this.btnIterationStart.UseVisualStyleBackColor = true;
+            this.btnIterationStart.Click += new System.EventHandler(this.btnIterationStart_Click);
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(505, 322);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
             // Fibonacci
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -310,14 +311,13 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Fibonacci";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Fibonacci_FormClosing);
-            this.Load += new System.EventHandler(this.Fibonacci_Load);
             this.tabGroup.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            this.groupIterate.ResumeLayout(false);
-            this.groupIterate.PerformLayout();
             this.groupRecursion.ResumeLayout(false);
             this.groupRecursion.PerformLayout();
+            this.groupIterate.ResumeLayout(false);
+            this.groupIterate.PerformLayout();
             this.ResumeLayout(false);
 
         }

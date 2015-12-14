@@ -20,54 +20,106 @@ namespace AlgorithmExperiment
             mainF = f;
         }
 
-        private void Fibonacci_FormClosing(object sender, FormClosingEventArgs e)
+        #region Calling winform controls using thread-safe method
+        delegate void IterationSetRangeCallback(int Range);
+        delegate void IterationSetMaxValLblCallback(string Text);
+        delegate void IterationSetTimeLblCallback(string Text);
+        delegate void IterationSetMaxIndexLblCallback(string Text);
+        delegate void RecursionSetRangeCallback(int Range);
+        delegate void RecursionSetMaxValLblCallback(string Text);
+        delegate void RecursionSetTimeLblCallback(string Text);
+        delegate void RecursionSetMaxIndexLblCallback(string Text);
+
+        public void RecursionSetMaxIndexLbl(string Text)
         {
-            DialogResult result = MessageBox.Show("确认退出？", "确认", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
-            if (result == DialogResult.Cancel)
+            if (this.lblRecursionMaxIndex.InvokeRequired)
             {
-                e.Cancel = true;
-                MessageBox.Show("Form closing cancelled.");
+                RecursionSetMaxValLblCallback d = new RecursionSetMaxValLblCallback(RecursionSetMaxIndexLbl);
+                this.Invoke(d, new object[] { Text });
             }
             else
             {
-                e.Cancel = false;
-                mainF.Show();
+                lblRecursionMaxIndex.Text = Text;
             }
         }
 
-        private void Fibonacci_Load(object sender, EventArgs e)
+        public void RecursionSetTimeLbl(string Text)
         {
-            
-        }
-
-        public ExecuteResult findFibMaxByIteration()
-        {
-            Stopwatch watch = new Stopwatch();
-            watch.Start();
-            List<FibonacciResult> fibRst = new List<FibonacciResult>();
-            int fibMax = 0, maxIndex = 0;
-            while (true)
+            if (this.lblRecursionTime.InvokeRequired)
             {
-                fibMax = Fibonacci_Iterate(maxIndex);
-                if (fibMax >= 0)
-                {
-                    fibRst.Add(new FibonacciResult(fibMax, maxIndex));
-                    maxIndex++;
-                }
-                else
-                {
-                    fibMax = fibRst[maxIndex - 1].FibResult;
-                    maxIndex = fibRst[maxIndex - 1].FibIndex;
-                    break;
-                }
-                //progressIteration.Value = maxIndex;
-                this.IterationSetRange(maxIndex);
+                RecursionSetTimeLblCallback d = new RecursionSetTimeLblCallback(RecursionSetTimeLbl);
+                this.Invoke(d, new object[] { Text });
             }
-            watch.Stop();
-            return new ExecuteResult(watch.ElapsedMilliseconds, new FibonacciResult(fibMax, maxIndex));
+            else
+            {
+                lblRecursionTime.Text = Text;
+            }
         }
 
-        delegate void IterationSetRangeCallback(int Range);
+        public void RecursionSetMaxValLbl(string Text)
+        {
+            if (this.lblRecursionMaxVal.InvokeRequired)
+            {
+                RecursionSetMaxValLblCallback d = new RecursionSetMaxValLblCallback(RecursionSetMaxValLbl);
+                this.Invoke(d, new object[] { Text });
+            }
+            else
+            {
+                lblRecursionMaxVal.Text = Text;
+            }
+        }
+
+        public void RecursionSetRange(int Range)
+        {
+            if (this.progressRecursion.InvokeRequired)
+            {
+                RecursionSetRangeCallback d = new RecursionSetRangeCallback(RecursionSetRange);
+                this.Invoke(d, new object[] { Range });
+            }
+            else
+            {
+                progressRecursion.Value = Range;
+            }
+        }
+
+        public void IterationSetMaxIndexLbl(string Text)
+        {
+            if (this.lblIterationMaxIndex.InvokeRequired)
+            {
+                IterationSetMaxValLblCallback d = new IterationSetMaxValLblCallback(IterationSetMaxIndexLbl);
+                this.Invoke(d, new object[] { Text });
+            }
+            else
+            {
+                lblIterationMaxIndex.Text = Text;
+            }
+        }
+
+        public void IterationSetTimeLbl(string Text)
+        {
+            if (this.lblIterationTime.InvokeRequired)
+            {
+                IterationSetTimeLblCallback d = new IterationSetTimeLblCallback(IterationSetTimeLbl);
+                this.Invoke(d, new object[] { Text });
+            }
+            else
+            {
+                lblIterationTime.Text = Text;
+            }
+        }
+
+        public void IterationSetMaxValLbl(string Text)
+        {
+            if (this.lblIterationMaxVal.InvokeRequired)
+            {
+                IterationSetMaxValLblCallback d = new IterationSetMaxValLblCallback(IterationSetMaxValLbl);
+                this.Invoke(d, new object[] { Text });
+            }
+            else
+            {
+                lblIterationMaxVal.Text = Text;
+            }
+        }
 
         public void IterationSetRange(int Range)
         {
@@ -81,32 +133,7 @@ namespace AlgorithmExperiment
                 progressIteration.Value = Range;
             }
         }
-
-        public ExecuteResult findFibMaxByRecursion()
-        {
-            Stopwatch watch = new Stopwatch();
-            watch.Start();
-            List<FibonacciResult> fibRst = new List<FibonacciResult>();
-            int fibMax = 0, maxIndex = 0;
-            while (true)
-            {
-                fibMax = Fibonacci_Recursion(maxIndex);
-                
-                if (fibMax >= 0)
-                {
-                    fibRst.Add(new FibonacciResult(fibMax, maxIndex));
-                    maxIndex++;
-                }
-                else
-                {
-                    fibMax = fibRst[maxIndex - 1].FibResult;
-                    maxIndex = fibRst[maxIndex - 1].FibIndex;
-                    break;
-                }
-            }
-            watch.Stop();
-            return new ExecuteResult(watch.ElapsedMilliseconds, new FibonacciResult(fibMax, maxIndex));
-        }
+        #endregion
 
         #region FibonacciAlgorithms
         /// <summary>
@@ -149,6 +176,76 @@ namespace AlgorithmExperiment
         }
         #endregion
 
+        private void Fibonacci_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult result = MessageBox.Show("确认退出？", "确认", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+            if (result == DialogResult.Cancel)
+            {
+                e.Cancel = true;
+                MessageBox.Show("Form closing cancelled.");
+            }
+            else
+            {
+                e.Cancel = false;
+                mainF.Show();
+            }
+        }
+
+        public ExecuteResult findFibMaxByIteration()
+        {
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
+            List<FibonacciResult> fibRst = new List<FibonacciResult>();
+            int fibMax = 0, maxIndex = 0;
+            while (true)
+            {
+                fibMax = Fibonacci_Iterate(maxIndex);
+                if (fibMax >= 0)
+                {
+                    fibRst.Add(new FibonacciResult(fibMax, maxIndex));
+                    maxIndex++;
+                }
+                else
+                {
+                    fibMax = fibRst[maxIndex - 1].FibResult;
+                    maxIndex = fibRst[maxIndex - 1].FibIndex;
+                    break;
+                }
+                this.IterationSetRange(maxIndex);
+            }
+            watch.Stop();
+            return new ExecuteResult(watch.ElapsedMilliseconds, new FibonacciResult(fibMax, maxIndex));
+        }
+
+        public ExecuteResult findFibMaxByRecursion()
+        {
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
+            List<FibonacciResult> fibRst = new List<FibonacciResult>();
+            int fibMax = 0, maxIndex = 0;
+            while (true)
+            {
+                fibMax = Fibonacci_Recursion(maxIndex);
+                
+                if (fibMax >= 0)
+                {
+                    fibRst.Add(new FibonacciResult(fibMax, maxIndex));
+                    maxIndex++;
+                }
+                else
+                {
+                    fibMax = fibRst[maxIndex - 1].FibResult;
+                    maxIndex = fibRst[maxIndex - 1].FibIndex;
+                    break;
+                }
+                this.RecursionSetRange(maxIndex);
+            }
+            watch.Stop();
+            return new ExecuteResult(watch.ElapsedMilliseconds, new FibonacciResult(fibMax, maxIndex));
+        }
+
+        
+
         private void btnIterationStart_Click(object sender, EventArgs e)
         {
             System.Threading.Thread a = new System.Threading.Thread(new System.Threading.ThreadStart(IterationFind));
@@ -158,9 +255,17 @@ namespace AlgorithmExperiment
         public void IterationFind()
         {
             ExecuteResult er = findFibMaxByIteration();
-            lblIterationMaxVal.Text = er.Result.FibResult.ToString();
-            lblIterationTime.Text = er.TimeEllapsed.ToString() + "毫秒";
-            lblIterationMaxIndex.Text = er.Result.FibIndex.ToString();
+            this.IterationSetMaxIndexLbl(er.Result.FibIndex.ToString());
+            this.IterationSetMaxValLbl(er.Result.FibResult.ToString());
+            this.IterationSetTimeLbl(er.TimeEllapsed.ToString() + "毫秒");
+        }
+
+        public void RecursionFind()
+        {
+            ExecuteResult er = findFibMaxByRecursion();
+            this.RecursionSetMaxIndexLbl(er.Result.FibIndex.ToString());
+            this.RecursionSetMaxValLbl(er.Result.FibResult.ToString());
+            this.RecursionSetTimeLbl(er.TimeEllapsed.ToString() + "毫秒");
         }
 
         private void tabPage1_Enter(object sender, EventArgs e)
@@ -181,10 +286,17 @@ namespace AlgorithmExperiment
 
         private void btnRecursionStart_Click(object sender, EventArgs e)
         {
-            ExecuteResult er = findFibMaxByRecursion();
-            lblRecursionMaxVal.Text = er.Result.FibResult.ToString();
-            lblRecursionTime.Text = er.TimeEllapsed.ToString() + "毫秒";
-            lblRecursionMaxIndex.Text = er.Result.FibIndex.ToString();
+            DialogResult dr = MessageBox.Show("切换选项卡将会强行打断算法执行过程，确认开始执行？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (dr == DialogResult.OK)
+            {
+                System.Threading.Thread b = new System.Threading.Thread(new System.Threading.ThreadStart(RecursionFind));
+                b.Start();
+            }
+        }
+
+        private void tabPage1_Leave(object sender, EventArgs e)
+        {
+            
         }
     }
     public class FibonacciResult
