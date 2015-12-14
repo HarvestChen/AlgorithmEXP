@@ -37,11 +37,7 @@ namespace AlgorithmExperiment
 
         private void Fibonacci_Load(object sender, EventArgs e)
         {
-            ExecuteResult a, b;
-            a = findFibMaxByIteration();
-            //b = findFibMaxByRecursion();
-            Console.WriteLine("Iteration: Time Elappsed: {0}ms, FibMax: {1}, MaxIndex: {2}", a.TimeEllapsed.ToString(), a.Result.FibResult.ToString(), a.Result.FibIndex.ToString());
-            //Console.WriteLine("Recursion:\nTime Elappsed: {0}ms, FibMax: {1}, MaxIndex: {2}", b.TimeEllapsed.ToString(), b.Result.FibResult.ToString(), b.Result.FibIndex.ToString());
+            
         }
 
         public ExecuteResult findFibMaxByIteration()
@@ -64,9 +60,26 @@ namespace AlgorithmExperiment
                     maxIndex = fibRst[maxIndex - 1].FibIndex;
                     break;
                 }
+                //progressIteration.Value = maxIndex;
+                this.IterationSetRange(maxIndex);
             }
             watch.Stop();
             return new ExecuteResult(watch.ElapsedMilliseconds, new FibonacciResult(fibMax, maxIndex));
+        }
+
+        delegate void IterationSetRangeCallback(int Range);
+
+        public void IterationSetRange(int Range)
+        {
+            if (this.progressIteration.InvokeRequired)
+            {
+                IterationSetRangeCallback d = new IterationSetRangeCallback(IterationSetRange);
+                this.Invoke(d, new object[] { Range });
+            }
+            else
+            {
+                progressIteration.Value = Range;
+            }
         }
 
         public ExecuteResult findFibMaxByRecursion()
@@ -135,6 +148,44 @@ namespace AlgorithmExperiment
             }
         }
         #endregion
+
+        private void btnIterationStart_Click(object sender, EventArgs e)
+        {
+            System.Threading.Thread a = new System.Threading.Thread(new System.Threading.ThreadStart(IterationFind));
+            a.Start();
+        }
+
+        public void IterationFind()
+        {
+            ExecuteResult er = findFibMaxByIteration();
+            lblIterationMaxVal.Text = er.Result.FibResult.ToString();
+            lblIterationTime.Text = er.TimeEllapsed.ToString() + "毫秒";
+            lblIterationMaxIndex.Text = er.Result.FibIndex.ToString();
+        }
+
+        private void tabPage1_Enter(object sender, EventArgs e)
+        {
+            progressIteration.Value = 0;
+            progressIteration.Minimum = 0;
+            progressIteration.Maximum = 47;
+            progressRecursion.Value = 0;
+            progressRecursion.Minimum = 0;
+            progressRecursion.Maximum = 47;
+            lblIterationMaxIndex.Text = "";
+            lblIterationMaxVal.Text = "";
+            lblIterationTime.Text = "";
+            lblRecursionMaxIndex.Text = "";
+            lblRecursionMaxVal.Text = "";
+            lblRecursionTime.Text = "";
+        }
+
+        private void btnRecursionStart_Click(object sender, EventArgs e)
+        {
+            ExecuteResult er = findFibMaxByRecursion();
+            lblRecursionMaxVal.Text = er.Result.FibResult.ToString();
+            lblRecursionTime.Text = er.TimeEllapsed.ToString() + "毫秒";
+            lblRecursionMaxIndex.Text = er.Result.FibIndex.ToString();
+        }
     }
     public class FibonacciResult
     {
