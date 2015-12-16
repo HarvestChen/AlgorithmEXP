@@ -276,6 +276,7 @@ namespace AlgorithmExperiment
         public ExecuteResult findFibMaxByIteration()
         {
             Stopwatch watch = new Stopwatch();
+            watch.Reset();
             watch.Start();
             List<FibonacciResult> fibRst = new List<FibonacciResult>();
             int fibMax = 0, maxIndex = 0;
@@ -302,6 +303,7 @@ namespace AlgorithmExperiment
         public ExecuteResult findFibMaxByNewIteration()
         {
             Stopwatch watch = new Stopwatch();
+            watch.Reset();
             watch.Start();
             List<FibonacciResult> fibRst = new List<FibonacciResult>();
             int fibMax = 0, maxIndex = 0;
@@ -328,6 +330,7 @@ namespace AlgorithmExperiment
         public ExecuteResult findFibMaxByRecursion()
         {
             Stopwatch watch = new Stopwatch();
+            watch.Reset();
             watch.Start();
             List<FibonacciResult> fibRst = new List<FibonacciResult>();
             int fibMax = 0, maxIndex = 0;
