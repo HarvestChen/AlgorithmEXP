@@ -209,7 +209,7 @@ namespace AlgorithmExperiment
                 Random random = new Random();
                 for (int i = 0; i < num; i++)
                 {
-                    unsortedArea.Text += random.Next().ToString() + " ";
+                    unsortedArea.Text += random.Next(20000).ToString() + " ";
                 }
             }
             catch(Exception ex)

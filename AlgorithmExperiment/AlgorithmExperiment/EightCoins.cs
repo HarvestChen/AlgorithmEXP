@@ -110,7 +110,7 @@ namespace AlgorithmExperiment
                     listRst.Items.Add("C1+C4 = C2+C5, C3 ? C1");
                     if (eightCoins[2] > eightCoins[0])
                     {
-                        listRst.Items.Add("C3 > C1, C5 is a HEAVIER FATE coin.");
+                        listRst.Items.Add("C3 > C1, C3 is a HEAVIER FATE coin.");
                     }
                     else
                     {

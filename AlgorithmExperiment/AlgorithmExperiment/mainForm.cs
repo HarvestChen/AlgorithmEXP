@@ -24,7 +24,6 @@ namespace AlgorithmExperiment
             ExpItems.Items.Add("分治法在数值问题中的应用-矩阵相乘问题");
             ExpItems.Items.Add("减治法在组合问题中的应用-8枚硬币问题");
             ExpItems.Items.Add("变治法在排序问题中的应用-堆排序问题");
-            ExpItems.Items.Add("动态规划法在图问题中的应用-全源最短路径问题");
             ExpItems.SelectedIndex = 0;
         }
 
@@ -58,11 +57,6 @@ namespace AlgorithmExperiment
                 case 3:
                     HeapSort hea = new HeapSort(this);
                     hea.Show();
-                    this.Hide();
-                    break;
-                case 4:
-                    ShortestPath shor = new ShortestPath(this);
-                    shor.Show();
                     this.Hide();
                     break;
                 default:

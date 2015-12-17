@@ -60,7 +60,7 @@ namespace AlgorithmExperiment
         /// <param name="b">矩阵B</param>
         /// <returns>矩阵A与矩阵B的乘积</returns>
         public static float[,] MatrixMultiplyUseDivideAndConquerMethod(float[,] a, float[,] b)
-        {    
+        {
             //a，b均是2的乘方的方阵
             float[,] result = new float[a.GetLength(0), a.GetLength(0)];
             if (a.GetLength(0) == 2)
@@ -236,10 +236,19 @@ namespace AlgorithmExperiment
             matrixResultTextbox.Text = "";
             int aCol, aRow, bCol, bRow;
             Random random = new Random();
-            aCol = random.Next(2, 5);
-            bRow = aCol;
-            aRow = random.Next(2, 5);
-            bCol = random.Next(2, 5);
+            int num = random.Next(2, 9);
+            while (true)
+            {
+                if (num % 2 != 0)
+                {
+                    num = random.Next(2, 9);
+                }
+                else { break; }
+            }
+            aRow = num;
+            bRow = num;
+            aCol = num;
+            bCol = num;
             matrixA = new float[aRow, aCol];
             matrixB = new float[bRow, bCol];
             for(int i = 0; i < matrixA.GetLength(0); i++)
@@ -290,10 +299,10 @@ namespace AlgorithmExperiment
                 {
                     matrixResultTextbox.Text += "\n\n\n\n矩阵A与矩阵B无法相乘";
                 }
-                //watch.Reset();
-                //matrixResult = MatrixMultiplyUseDivideAndConquerMethod(matrixA, matrixB);
-                //watch.Stop();
-                //DACTime.Text = watch.ElapsedMilliseconds.ToString() + "毫秒";
+                watch.Reset();
+                matrixResult = MatrixMultiplyUseDivideAndConquerMethod(matrixA, matrixB);
+                watch.Stop();
+                DACTime.Text = watch.ElapsedMilliseconds.ToString() + "毫秒";
             }
             else
             {
