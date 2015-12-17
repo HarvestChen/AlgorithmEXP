@@ -38,3 +38,4 @@ C:\Users\Feng\Desktop\AlgorithmEXP\AlgorithmExperiment\AlgorithmExperiment\obj\D
 C:\Users\Feng\Desktop\AlgorithmEXP\AlgorithmExperiment\AlgorithmExperiment\obj\Debug\AlgorithmExperiment.csproj.GenerateResource.Cache
 C:\Users\Feng\Desktop\AlgorithmEXP\AlgorithmExperiment\AlgorithmExperiment\obj\Debug\AlgorithmExperiment.exe
 C:\Users\Feng\Desktop\AlgorithmEXP\AlgorithmExperiment\AlgorithmExperiment\obj\Debug\AlgorithmExperiment.pdb
+C:\Users\Harvest\Desktop\AlgorithmEXP\AlgorithmExperiment\AlgorithmExperiment\obj\Debug\AlgorithmExperiment.csprojResolveAssemblyReference.cache
